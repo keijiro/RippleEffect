@@ -29,11 +29,11 @@ Material:
       data:
         first:
           name: _Drop1
-        second: {r: .333000004, g: .333000004, b: 1.79999995, a: 0}
+        second: {r: .333000004, g: .333000004, b: 1.99000001, a: 0}
       data:
         first:
           name: _Drop2
-        second: {r: .666000009, g: .666000009, b: 3.00999999, a: 0}
+        second: {r: .666000009, g: .666000009, b: .980000019, a: 0}
       data:
         first:
           name: _Origin

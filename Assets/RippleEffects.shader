@@ -35,15 +35,21 @@
     {
         float d = length(position - origin);
         float t = max(time * _Params.x - d, 0);
-        return 0.2f * sin(t * _Params.z * 2 * 3.14159265f) * exp(-_Params.y * t);
+        return sin(t * _Params.z * 2 * 3.14159265f) * exp(-_Params.y * t);
     }
 
     half4 frag(v2f i) : SV_Target
     {
-        return
-            wave(i.uv, _Drop1.xy, _Drop1.z) +
-            wave(i.uv, _Drop2.xy, _Drop2.z) +
-            0.5f;
+        float2 dx = float2(0.001f, 0);
+        float2 dy = float2(0, 0.001f);
+
+        float w = wave(i.uv, _Drop1.xy, _Drop1.z) + wave(i.uv, _Drop2.xy, _Drop2.z);
+        float wdx = wave(i.uv + dx, _Drop1.xy, _Drop1.z) + wave(i.uv + dx, _Drop2.xy, _Drop2.z);
+        float wdy = wave(i.uv + dy, _Drop1.xy, _Drop1.z) + wave(i.uv + dy, _Drop2.xy, _Drop2.z);
+
+        float2 dd = float2(wdx - w, wdy - w);
+
+        return tex2D(_MainTex, i.uv + dd) * (1.0f - length(dd) * 4);
     }
 
     ENDCG
@@ -56,6 +62,7 @@
             Fog { Mode off }
             CGPROGRAM
             #pragma fragmentoption ARB_precision_hint_fastest 
+            #pragma target 3.0
             #pragma vertex vert
             #pragma fragment frag
             ENDCG
