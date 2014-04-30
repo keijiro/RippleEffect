@@ -28,13 +28,17 @@ Material:
         second: {r: .279411793, g: .279411793, b: .279411793, a: 1}
       data:
         first:
+          name: _Drop1
+        second: {r: .333000004, g: .333000004, b: 1.79999995, a: 0}
+      data:
+        first:
+          name: _Drop2
+        second: {r: .666000009, g: .666000009, b: 3.00999999, a: 0}
+      data:
+        first:
           name: _Origin
         second: {r: .720000029, g: .209999993, b: .660000026, a: .899999976}
       data:
         first:
-          name: _Drop1
-        second: {r: .333000004, g: .333000004, b: 0, a: 0}
-      data:
-        first:
-          name: _Drop2
-        second: {r: .666000009, g: .666000009, b: 0, a: 0}
+          name: _Params
+        second: {r: .200000003, g: 8, b: 6, a: 1}
