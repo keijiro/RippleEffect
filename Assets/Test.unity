@@ -170,7 +170,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc7030f5bb244b09b8037c2ded95f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 24cc20ecca0af42fca8767927febc0d1, type: 2}
+  waveShape:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .499999821
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .0475220606
+      value: .997097015
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .150597572
+      value: .0989371389
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .248656258
+      value: .797496736
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .350630611
+      value: .295428067
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .450433999
+      value: .600875318
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .551673651
+      value: .392143756
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .650149941
+      value: .546564102
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .749245822
+      value: .462770075
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .850981355
+      value: .51885885
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .999547243
+      value: .500000119
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &2116522087
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +239,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2116522091}
   - 33: {fileID: 2116522090}
-  - 64: {fileID: 2116522089}
   - 23: {fileID: 2116522088}
   m_Layer: 0
   m_Name: Quad
@@ -209,19 +267,6 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &2116522089
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2116522087}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &2116522090
 MeshFilter:
   m_ObjectHideFlags: 0
