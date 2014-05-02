@@ -13,25 +13,11 @@
 
     #include "UnityCG.cginc"
 
-    struct v2f
-    {
-        float4 position : SV_POSITION;
-        float2 uv : TEXCOORD0;
-    };
-
     sampler2D _MainTex;
     sampler2D _GradTex;
     float4 _Params;
     float3 _Drop1;
     float3 _Drop2;
-
-    v2f vert(appdata_img v)
-    {
-        v2f o;
-        o.position = mul(UNITY_MATRIX_MVP, v.vertex);
-        o.uv = v.texcoord.xy;
-        return o;
-    }
 
     float wave(float2 position, float2 origin, float time)
     {
@@ -41,7 +27,7 @@
         return tex2D(_GradTex, float2(t, 0)).r;
     }
 
-    half4 frag(v2f i) : SV_Target
+    half4 frag(v2f_img i) : SV_Target
     {
         float2 dx = float2(0.001f, 0);
         float2 dy = float2(0, 0.001f);
@@ -68,7 +54,7 @@
             CGPROGRAM
             #pragma fragmentoption ARB_precision_hint_fastest 
             #pragma target 3.0
-            #pragma vertex vert
+            #pragma vertex vert_img
             #pragma fragment frag
             ENDCG
         }
