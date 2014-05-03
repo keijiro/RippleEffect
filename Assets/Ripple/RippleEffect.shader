@@ -1,4 +1,4 @@
-﻿Shader "Custom/Ripple Effects"
+﻿Shader "Hidden/Ripple Effect"
 {
     Properties
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RippleEffects : MonoBehaviour
+public class RippleEffect : MonoBehaviour
 {
     public AnimationCurve waveform = new AnimationCurve(
         new Keyframe(0.00f, 0.50f, 0, 0),
@@ -93,7 +93,7 @@ public class RippleEffects : MonoBehaviour
         }
         gradTexture.Apply();
 
-        material = new Material(Shader.Find("Custom/Ripple Effects"));
+        material = new Material(Shader.Find("Hidden/Ripple Effect"));
         material.hideFlags = HideFlags.DontSave;
         material.SetTexture("_GradTex", gradTexture);
 
