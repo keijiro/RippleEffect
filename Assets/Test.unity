@@ -230,9 +230,10 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  reflectionColor: {r: 1, g: 0, b: 0, a: 0}
-  refractionStrength: .300000012
+  reflectionColor: {r: .246431664, g: .275772572, b: .316176474, a: 0}
+  refractionStrength: 1
   waveSpeed: 1.25
+  reflectionStrength: .699999988
 --- !u!1 &2116522087
 GameObject:
   m_ObjectHideFlags: 0
