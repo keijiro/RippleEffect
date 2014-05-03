@@ -6,81 +6,96 @@ public class RippleEffects : MonoBehaviour
     public AnimationCurve waveShape;
 
     [Range(0.01f, 1.0f)]
-    public float refractionStrength = 0.3f;
+    public float refractionStrength = 0.5f;
 
-    public Color reflectionColor;
+    public Color reflectionColor = Color.white;
 
     [Range(0.01f, 1.0f)]
-    public float reflectionStrength = 0.8f;
+    public float reflectionStrength = 0.7f;
 
     [Range(1.0f, 3.0f)]
     public float waveSpeed = 1.25f;
 
+    class Droplet
+    {
+        Vector2 position;
+        float interval;
+        float time;
 
-    Material tempMaterial;
+        public Droplet()
+        {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            position = new Vector2(Random.value, Random.value);
+            interval = Random.Range(2.0f, 3.0f);
+            time = 0;
+        }
+
+        public void Update()
+        {
+            time += Time.deltaTime;
+            if (interval < time) Reset();
+        }
+
+        public Vector4 MakeShaderParameter(float aspect)
+        {
+            return new Vector4(position.x * aspect, position.y, time, 0);
+        }
+    }
+
+    Droplet[] droplets;
     Texture2D gradTexture;
+    Material material;
 
-    Vector2 drop1;
-    Vector2 drop2;
-    Vector2 drop3;
+    void UpdateShaderParameters()
+    {
+        var c = GetComponent<Camera>();
 
-    float time1;
-    float time2;
-    float time3;
+        material.SetVector("_Drop1", droplets[0].MakeShaderParameter(c.aspect));
+        material.SetVector("_Drop2", droplets[1].MakeShaderParameter(c.aspect));
+        material.SetVector("_Drop3", droplets[2].MakeShaderParameter(c.aspect));
+
+        material.SetColor("_Reflection", reflectionColor);
+        material.SetVector("_Params1", new Vector4(c.aspect, 1, 1 / waveSpeed, 0));
+        material.SetVector("_Params2", new Vector4(1, 1 / c.aspect, refractionStrength, reflectionStrength));
+    }
 
     void Awake()
     {
-        tempMaterial = new Material(Shader.Find("Custom/Ripple Effects"));
-        tempMaterial.SetColor("_Reflection", reflectionColor);
+        droplets = new Droplet[3];
+        droplets[0] = new Droplet();
+        droplets[1] = new Droplet();
+        droplets[2] = new Droplet();
 
         gradTexture = new Texture2D(2048, 1, TextureFormat.Alpha8, false);
         gradTexture.wrapMode = TextureWrapMode.Clamp;
         gradTexture.filterMode = FilterMode.Bilinear;
-
         for (var i = 0; i < gradTexture.width; i++)
         {
             var x = 1.0f / gradTexture.width * i;
-            gradTexture.SetPixel(i, 0, new Color(0, 0, 0, waveShape.Evaluate(x)));
+            var a = waveShape.Evaluate(x);
+            gradTexture.SetPixel(i, 0, new Color(a, a, a, a));
         }
         gradTexture.Apply();
 
-        tempMaterial.SetTexture("_GradTex", gradTexture);
+        material = new Material(Shader.Find("Custom/Ripple Effects"));
+        material.hideFlags = HideFlags.DontSave;
+        material.SetTexture("_GradTex", gradTexture);
+
+        UpdateShaderParameters();
     }
 
     void Update()
     {
-        time1 += Time.deltaTime;
-        time2 += Time.deltaTime;
-        time3 += Time.deltaTime;
-
-        if (time1 > 2.0f && Random.value < 0.1f)
-        {
-            drop1 = new Vector2(Random.value * camera.aspect, Random.value);
-            time1 = 0.0f;
-        }
-
-        if (time2 > 2.0f && Random.value < 0.1f)
-        {
-            drop2 = new Vector2(Random.value * camera.aspect, Random.value);
-            time2 = 0.0f;
-        }
-
-        if (time3 > 2.0f && Random.value < 0.1f)
-        {
-            drop3 = new Vector2(Random.value * camera.aspect, Random.value);
-            time3 = 0.0f;
-        }
-
-        tempMaterial.SetVector("_Drop1", new Vector4(drop1.x, drop1.y, time1, 0));
-        tempMaterial.SetVector("_Drop2", new Vector4(drop2.x, drop2.y, time2, 0));
-        tempMaterial.SetVector("_Drop3", new Vector4(drop3.x, drop3.y, time3, 0));
-
-        tempMaterial.SetVector("_Params1", new Vector4(camera.aspect, 1, 1.0f / waveSpeed, 0));
-        tempMaterial.SetVector("_Params2", new Vector4(1, 1.0f / camera.aspect, refractionStrength, reflectionStrength));
+        foreach (var d in droplets) d.Update();
+        UpdateShaderParameters();
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(source, destination, tempMaterial);
+        Graphics.Blit(source, destination, material);
     }
 }

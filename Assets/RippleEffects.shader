@@ -4,9 +4,9 @@
     {
         _MainTex("Base", 2D) = "white" {}
         _GradTex("Gradient", 2D) = "white" {}
+        _Reflection("Reflection Color", Color) = (0, 0, 0, 0)
         _Params1("Parameters 1", Vector) = (1, 1, 0.8, 0)
         _Params2("Parameters 2", Vector) = (1, 1, 1, 0)
-        _Reflection("Reflection Color", Color) = (0, 0, 0, 0)
         _Drop1("Drop 1", Vector) = (0.49, 0.5, 0, 0)
         _Drop2("Drop 2", Vector) = (0.50, 0.5, 0, 0)
         _Drop3("Drop 3", Vector) = (0.51, 0.5, 0, 0)
@@ -21,9 +21,10 @@
 
     sampler2D _GradTex;
 
-    float4 _Reflection;
-    float4 _Params1;
-    float4 _Params2;
+    half4 _Reflection;
+    float4 _Params1;    // [ aspect, 1, scale, 0 ]
+    float4 _Params2;    // [ 1, 1/aspect, refraction, reflection ]
+
     float3 _Drop1;
     float3 _Drop2;
     float3 _Drop3;
@@ -45,18 +46,16 @@
 
     half4 frag(v2f_img i) : SV_Target
     {
-        float2 p = i.uv * _Params1.xy;
-
         const float2 dx = float2(0.01f, 0);
         const float2 dy = float2(0, 0.01f);
+
+        float2 p = i.uv * _Params1.xy;
 
         float w = allwave(p);
         float2 dw = float2(allwave(p + dx) - w, allwave(p + dy) - w);
 
-        float2 duv = dw * _Params2.xy * 0.1f * _Params2.z;
-
+        float2 duv = dw * _Params2.xy * 0.2f * _Params2.z;
         half4 c = tex2D(_MainTex, i.uv + duv);
-
         float fr = pow(length(dw) * 3 * _Params2.w, 3);
 
         return lerp(c, _Reflection, fr);
