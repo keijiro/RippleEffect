@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RippleEffects : MonoBehaviour
 {
-    public AnimationCurve waveShape = new AnimationCurve(
+    public AnimationCurve waveform = new AnimationCurve(
         new Keyframe(0.00f, 0.50f, 0, 0),
         new Keyframe(0.05f, 1.00f, 0, 0),
         new Keyframe(0.15f, 0.10f, 0, 0),
@@ -88,7 +88,7 @@ public class RippleEffects : MonoBehaviour
         for (var i = 0; i < gradTexture.width; i++)
         {
             var x = 1.0f / gradTexture.width * i;
-            var a = waveShape.Evaluate(x);
+            var a = waveform.Evaluate(x);
             gradTexture.SetPixel(i, 0, new Color(a, a, a, a));
         }
         gradTexture.Apply();
