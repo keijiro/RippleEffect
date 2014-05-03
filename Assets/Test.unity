@@ -174,64 +174,64 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: .499999821
+      value: .5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .0475220606
-      value: .997097015
+    - time: .0500000007
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .150597572
-      value: .0989371389
+    - time: .150000006
+      value: .100000001
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .248656258
-      value: .797496736
+    - time: .25
+      value: .800000012
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .350630611
-      value: .295428067
+    - time: .349999994
+      value: .300000012
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .450433999
-      value: .600875318
+    - time: .449999988
+      value: .600000024
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .551673651
-      value: .392143756
+    - time: .550000012
+      value: .400000006
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .650149941
-      value: .546564102
+    - time: .649999976
+      value: .550000012
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .749245822
-      value: .462770075
+    - time: .75
+      value: .460000008
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .850981355
-      value: .51885885
+    - time: .850000024
+      value: .519999981
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .999547243
-      value: .500000119
+    - time: .99000001
+      value: .5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   refractionStrength: .5
-  reflectionColor: {r: .246431664, g: .275772572, b: .316176474, a: 0}
+  reflectionColor: {r: 1, g: 1, b: 1, a: 1}
   reflectionStrength: .699999988
   waveSpeed: 1.25
 --- !u!1 &2116522087
