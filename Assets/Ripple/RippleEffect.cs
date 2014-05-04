@@ -20,7 +20,7 @@ public class RippleEffect : MonoBehaviour
     [Range(0.01f, 1.0f)]
     public float refractionStrength = 0.5f;
 
-    public Color reflectionColor = Color.white;
+    public Color reflectionColor = Color.gray;
 
     [Range(0.01f, 1.0f)]
     public float reflectionStrength = 0.7f;
@@ -28,28 +28,28 @@ public class RippleEffect : MonoBehaviour
     [Range(1.0f, 3.0f)]
     public float waveSpeed = 1.25f;
 
+    [Range(0.0f, 2.0f)]
+    public float dropInterval = 0.5f;
+
     class Droplet
     {
         Vector2 position;
-        float interval;
         float time;
 
         public Droplet()
         {
-            Reset();
+            time = 1000;
         }
 
         public void Reset()
         {
             position = new Vector2(Random.value, Random.value);
-            interval = Random.Range(2.0f, 3.0f);
             time = 0;
         }
 
         public void Update()
         {
             time += Time.deltaTime;
-            if (interval < time) Reset();
         }
 
         public Vector4 MakeShaderParameter(float aspect)
@@ -61,6 +61,8 @@ public class RippleEffect : MonoBehaviour
     Droplet[] droplets;
     Texture2D gradTexture;
     Material material;
+    float timer;
+    int dropCount;
 
     void UpdateShaderParameters()
     {
@@ -102,12 +104,28 @@ public class RippleEffect : MonoBehaviour
 
     void Update()
     {
+        if (dropInterval > 0)
+        {
+            timer += Time.deltaTime;
+            while (timer > dropInterval)
+            {
+                Emit();
+                timer -= dropInterval;
+            }
+        }
+
         foreach (var d in droplets) d.Update();
+
         UpdateShaderParameters();
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         Graphics.Blit(source, destination, material);
+    }
+
+    public void Emit()
+    {
+        droplets[dropCount++ % droplets.Length].Reset();
     }
 }
