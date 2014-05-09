@@ -1,7 +1,7 @@
 Water surface ripple effect for Unity
 -------------------------------------
 
-![screenshot](http://keijiro.github.io/Ripple/screenshot.png)
+![screenshot](http://keijiro.github.io/RippleEffect/screenshot.png)
 
 https://vine.co/v/MrF1utblYLM
 
