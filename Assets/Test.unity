@@ -235,6 +235,7 @@ MonoBehaviour:
   reflectionStrength: .699999988
   waveSpeed: 1.25
   dropInterval: .5
+  shader: {fileID: 4800000, guid: 162fe242d486f4dab90ed53db15b9c19, type: 3}
 --- !u!1 &2116522087
 GameObject:
   m_ObjectHideFlags: 0

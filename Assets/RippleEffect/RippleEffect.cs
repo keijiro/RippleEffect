@@ -31,6 +31,9 @@ public class RippleEffect : MonoBehaviour
     [Range(0.0f, 2.0f)]
     public float dropInterval = 0.5f;
 
+    [SerializeField, HideInInspector]
+    Shader shader;
+
     class Droplet
     {
         Vector2 position;
@@ -95,7 +98,7 @@ public class RippleEffect : MonoBehaviour
         }
         gradTexture.Apply();
 
-        material = new Material(Shader.Find("Hidden/Ripple Effect"));
+        material = new Material(shader);
         material.hideFlags = HideFlags.DontSave;
         material.SetTexture("_GradTex", gradTexture);
 
